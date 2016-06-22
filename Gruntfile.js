@@ -442,7 +442,7 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
         },
-		 {expand: true, src: ['deployment/**'], dest: '<%= yeoman.dist %>/'},
+		 {expand: true, cwd: 'deployment/', src: '**' , dest: '<%= yeoman.dist %>'},
 		 {expand: true, src: 'LICENSE', dest: '<%= yeoman.dist %>/'}
 		]
       },
