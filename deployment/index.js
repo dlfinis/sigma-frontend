@@ -1,7 +1,8 @@
 // set up ======================================================================
 var express  = require('express');
 var app      = express(); 								// create our app w/ express
-var port  	 = process.env.PORT || 8080; 				// set the port
+var port  	 = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080; 	// set the port
+var ipaddr   = process.env.OPENSHIFT_NODEJS_IP || localhost;
 var morgan   = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
@@ -16,4 +17,4 @@ app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-M
 
 // listen (start app with node server.js) ======================================
 app.listen(port);
-console.log("Sigma Frontend listening on port " + port);
+console.log("Sigma Frontend listening on port " + port ,'& IP Address :',ipaddr);
