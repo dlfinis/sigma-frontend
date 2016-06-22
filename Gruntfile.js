@@ -195,6 +195,17 @@ module.exports = function (grunt) {
       server: '.tmp'
     },
 
+	//Copy files in dist
+	copy: {
+	  dist: {
+		files: [
+		  // includes files for the deployment
+		  {expand: true, src: ['deployment/**'], dest: '<%= yeoman.dist %>/'},
+		  // include LICENSE
+		  {expand: true, src: 'LICENSE', dest: '<%= yeoman.dist %>/'}
+		],
+	  },
+	},
     // Add vendor prefixed styles
     postcss: {
       options: {
@@ -532,6 +543,7 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
+	'copy',
 	'buildcontrol:live'
   ]);
 
