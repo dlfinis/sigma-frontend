@@ -16,7 +16,8 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+	buildcontrol: 'grunt-build-control'
   });
 
   // Configurable paths for the application
@@ -30,7 +31,27 @@ module.exports = function (grunt) {
 
     // Project settings
     yeoman: appConfig,
-
+	
+	buildcontrol: {
+		options: {
+		  dir: 'dist',
+		  commit: true,
+		  push: true,
+		  message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+		},
+		stage: {
+		  options: {
+		    remote: 'git@github.com:dlfinis/sigma-frontent-dist.git',
+		    branch: 'development'
+		  }
+		},
+		live: {
+		  options: {
+		    remote: 'git@github.com:dlfinis/sigma-frontent-dist.git',
+		    branch: 'master'
+		  }
+		}
+	},
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
@@ -454,6 +475,13 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.registerTask('deploy', [
+	'buildcontrol:stage'
+  ]);
+
+  grunt.registerTask('deploy_live', [
+	'buildcontrol:live'
+  ]);
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -499,7 +527,8 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+	'buildcontrol:live'
   ]);
 
   grunt.registerTask('default', [
