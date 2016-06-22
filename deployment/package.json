@@ -1,5 +1,5 @@
 {
-  "name": "sigmaFrontend",
+  "name": "sigma-dist",
   "private": true,
   "engines": {
     "node": ">=4.4.5"
