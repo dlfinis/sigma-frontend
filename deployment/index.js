@@ -30,6 +30,10 @@ var apiProxy = proxy(ipaddr+':'+port_api+'/api', {
     }
 });
 
+app.use(function(err, req, res, next){
+  if (!err) return next();
+  res.send(500);
+});
 
 app.use('/api/*', apiProxy);
 
